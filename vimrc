@@ -1,5 +1,5 @@
 "to use default vim feature
-set nocompatible 
+set nocompatible
 
 " Pathogen settings.
 filetype off
@@ -17,8 +17,8 @@ set modelines=0
 " Disabling default keys to learn the hjkl
 nnoremap <up> <nop>
 nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+nnoremap <left> :tabprevious<cr>
+nnoremap <right> :tabnext<cr>
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -77,9 +77,9 @@ set t_vb=
 set tm=500
 
 " Working with split screen nicely  Resize Split When the window is resized"
-au VimResized * :wincmd =                   
+au VimResized * :wincmd =
 
-"The 'scrolloff' (scroll offset) option determines the minimum number of screen lines that you would like above and below the cursor. 
+"The 'scrolloff' (scroll offset) option determines the minimum number of screen lines that you would like above and below the cursor.
 "By default, 'scrolloff' is 0 which means that you can move the cursor to any line in the window without causing scrolling.
 set scrolloff=3
 
@@ -146,6 +146,8 @@ nnoremap : ;
 let mapleader = ","
 
 let g:mapleader = ","
+" omnifunc
+inoremap <leader><tab> <C-x><C-o>
 " Fast saving
 nnoremap <leader>w :w!<cr>
 
@@ -154,7 +156,7 @@ noremap <leader>bd :Bclose<cr>
 " Close all the buffers
 noremap <leader>ba :1,1000 bd!<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -167,7 +169,7 @@ noremap <leader>to :tabonly<cr>
 noremap <leader>tc :tabclose<cr>
 noremap <leader>tm :tabmove
 noremap <leader>tl :tabnext<cr>
-noremap <leader>tp :tabprevious<cr>
+noremap <leader>th :tabprevious<cr>
 
 "Disable highlight when <leader><cr> is pressed
 noremap <leader><space> :noh<cr>
@@ -207,6 +209,9 @@ noremap <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 noremap <leader>n :cn<cr>
 noremap <leader>p :cp<cr>
 
+" Remove trailing white spaces while saving any type of file
+autocmd BufWritePre * :%s/\s\+$//e
+
 "Helper function for searching
 function! VisualSelection(direction) range
     let l:saved_reg = @"
@@ -230,7 +235,7 @@ function! VisualSelection(direction) range
 endfunction
 
 "highlight word under cursor
-highlight flicker gui=bold guifg=white  
+highlight flicker gui=bold guifg=white
 au CursorMoved <buffer> exe 'match flicker /\V\<'.escape(expand('<cword>'), '/').'\>/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -244,7 +249,7 @@ noremap <leader>ss :setlocal spell!<c-r>
 
 " Shortcuts using <leader> options for spell check
 " next search
-noremap <leader>sn ]s 
+noremap <leader>sn ]s
 " previous spell check
 noremap <leader>sp [s
 " add word to spell check
@@ -284,74 +289,3 @@ if has("gui_running")
 endif
 
 " ========== END Gvim Settings ==========
-
-
-" ========== Plugin Settings =========="
-"" Rope settings."
-"inoremap <leader>j <ESC>:RopeGotoDefinition<cr>
-"
-"
-"
-"
-"" Mapping to NERDTree
-"nnoremap <C-n> :NERDTreeToggle<cr>
-"
-"" Mini Buffer some settigns."
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplMapWindowNavArrows = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplModSelTarget = 1
-"
-"" Rope Plugin settings
-"imap <leader>j <ESC>:RopeGotoDefinition<cr>
-"nmap <leader>j <ESC>:RopeGotoDefinition<cr>
-"
-"" Tagbar key bindings."
-"nmap <leader>l <ESC>:TagbarToggle<cr>
-"imap <leader>l <ESC>:TagbarToggle<cr>i
-
-
-" =========== END Plugin Settings =========="
-"
-"set relativenumber
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " Remove the Windows ^M - when the encodings gets messed up
-" noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-"
-" " Quickly open a buffer for scripbble
-" map <leader>q :e ~/buffer<cr>
-"
-" " Toggle paste mode on and off
-" map <leader>pp :setlocal paste!<cr>
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"nnoremap j gj
-"nnoremap k gk
-"nnoremap <leader><space> :noh<cr>
-" To  show special characters in Vim
-"set list
-"
-"set undofile
-"set shell=/bin/bash
-"
-"
-"
-"" Make Vim able to edit corntab fiels again.
-"set backupskip=/tmp/*,/private/tmp/*"
-"
-"" Enable Mouse
-"" ,ft Fold tag, helpful for HTML editing.
-"nnoremap <leader>ft vatzf
-"
-"set mouse=aset listchars=tab:▸\ ,eol:¬
-"" Set vim to save the file on focus out.
-"au FocusLost * :wa
-"
-"" Adding More Shorcuts keys using leader kye.
-"" Leader Kye provide separate namespace for specific commands.
-"",W Command to remove white space from a file.
-"nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-
